@@ -11,10 +11,15 @@ func cleanInput(text string) []string {
 	return strings.Fields(strings.TrimSpace(strings.ToLower(text)))
 }
 
+type config struct {
+	nextLocationsURL *string
+	prevLocationsURL *string
+}
+
 type cliCommand struct {
 	name        string
 	description string
-	callback    func() error
+	callback    func(*config) error
 }
 
 var commands = map[string]cliCommand{
@@ -28,9 +33,19 @@ var commands = map[string]cliCommand{
 		description: "Display available commands",
 		callback:    commandHelp,
 	},
+	"map": {
+		name:        "map",
+		description: "Get the next page of locations",
+		callback:    commandMap,
+	},
+	"mapb": {
+		name:        "mapb",
+		description: "Get the previous page of locations",
+		callback:    commandMapb,
+	},
 }
 
-func startRepl() {
+func startRepl(cfg *config) {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for {
@@ -50,7 +65,7 @@ func startRepl() {
 			continue
 		}
 
-		err := cmd.callback()
+		err := cmd.callback(cfg)
 		if err != nil {
 			fmt.Println(err)
 		}
