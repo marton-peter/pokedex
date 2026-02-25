@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/marton-peter/pokedex/internal/pokeapi"
 )
 
 func cleanInput(text string) []string {
@@ -12,6 +14,7 @@ func cleanInput(text string) []string {
 }
 
 type config struct {
+	client           *pokeapi.Client
 	nextLocationsURL *string
 	prevLocationsURL *string
 }

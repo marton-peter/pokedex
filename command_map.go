@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/marton-peter/pokedex/internal/pokeapi"
 )
 
 func commandMap(cfg *config) error {
@@ -16,7 +14,7 @@ func commandMap(cfg *config) error {
 	}
 
 	// 2. Fetch one page
-	resp, err := pokeapi.FetchLocationAreas(url)
+	resp, err := cfg.client.FetchLocationAreas(url)
 	if err != nil {
 		return err
 	}
