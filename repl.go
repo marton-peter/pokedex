@@ -17,6 +17,7 @@ type config struct {
 	client           *pokeapi.Client
 	nextLocationsURL *string
 	prevLocationsURL *string
+	caughtPokemon    map[string]pokeapi.Pokemon
 }
 
 type cliCommand struct {
@@ -50,6 +51,11 @@ var commands = map[string]cliCommand{
 		name:        "explore",
 		description: "Get a list of pokemons in the passed location",
 		callback:    commandExplore,
+	},
+	"catch": {
+		name:        "catch",
+		description: "Attempts to catch the passed pokemon",
+		callback:    commandCatch,
 	},
 }
 
