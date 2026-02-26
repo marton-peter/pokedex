@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func commandMapb(cfg *config) error {
+func commandMapb(cfg *config, args []string) error {
 	// 1. Decide which URL to use
 	var url string
 	if cfg.prevLocationsURL == nil {

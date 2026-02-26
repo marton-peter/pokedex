@@ -22,7 +22,7 @@ type config struct {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*config) error
+	callback    func(*config, []string) error
 }
 
 var commands = map[string]cliCommand{
@@ -46,6 +46,11 @@ var commands = map[string]cliCommand{
 		description: "Get the previous page of locations",
 		callback:    commandMapb,
 	},
+	"explore": {
+		name:        "explore",
+		description: "Get a list of pokemons in the passed location",
+		callback:    commandExplore,
+	},
 }
 
 func startRepl(cfg *config) {
@@ -61,6 +66,7 @@ func startRepl(cfg *config) {
 
 		words := cleanInput(scanner.Text())
 		cmdName := words[0]
+		args := words[1:]
 
 		cmd, ok := commands[cmdName]
 		if !ok {
@@ -68,7 +74,7 @@ func startRepl(cfg *config) {
 			continue
 		}
 
-		err := cmd.callback(cfg)
+		err := cmd.callback(cfg, args)
 		if err != nil {
 			fmt.Println(err)
 		}
