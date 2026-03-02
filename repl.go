@@ -57,6 +57,16 @@ var commands = map[string]cliCommand{
 		description: "Attempts to catch the passed pokemon",
 		callback:    commandCatch,
 	},
+	"inspect": {
+		name:        "inspect",
+		description: "Prints information about the passed pokemon if caught",
+		callback:    commandInspect,
+	},
+	"pokedex": {
+		name:        "pokedex",
+		description: "Lists all caught pokemon",
+		callback:    commandPokedex,
+	},
 }
 
 func startRepl(cfg *config) {
